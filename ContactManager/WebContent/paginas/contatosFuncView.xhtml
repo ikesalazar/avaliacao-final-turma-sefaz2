@@ -1,0 +1,100 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<h:outputStylesheet name="/css/style.css" />
+</h:head>
+
+<h:body>
+	<h:form id="contatosBusca">
+
+		<f:metadata>
+			<f:viewAction action="#{FuncionarioBean.atualizarSessionUsuario}" />
+		</f:metadata>
+
+		<p:staticMessage severity="info" summary="Sessão iniciada!"
+			value="#{FuncionarioBean.sessionUsuario.nome}" />
+
+
+		<p:dataTable var="funcionario"
+			value="#{FuncionarioBean.listaFuncionarios}"
+			emptyMessage="Nenhum funcionário encontrado">
+			<f:facet name="header">
+            Contatos Funcionários
+        	</f:facet>
+			<f:facet name="header">
+				<p:outputPanel>
+					<h:outputText value="Buscar funcionário:" styleClass="texto" />
+					<p:inputText value="#{FuncionarioBean.funcionario.telefone}"
+						styleClass="pesquisa" placeholder="Telefone" />
+					<p:commandButton value="Pesquisar" update="@form"
+						actionListener="#{FuncionarioBean.pesquisar}" />
+				</p:outputPanel>
+			</f:facet>
+
+			<p:column headerText="Cpf">
+				<h:outputText value="#{funcionario.cpf}" />
+			</p:column>
+
+			<p:column headerText="Nome">
+				<h:outputText value="#{funcionario.nome}" />
+			</p:column>
+
+			<p:column headerText="Email">
+				<h:outputText value="#{funcionario.email}" />
+			</p:column>
+
+			<p:column headerText="Telefone">
+				<h:outputText value="#{funcionario.telefone}" />
+			</p:column>
+
+			<p:column headerText="Ações">
+				<p:commandButton update="contatosBusca" icon="pi pi-user-edit"
+					action="#{FuncionarioBean.atualizar}" process="@this">
+				</p:commandButton>
+
+				<p:commandButton update="contatosBusca" icon="pi pi-trash"
+					action="#{FuncionarioBean.deletar}" process="@this">
+				</p:commandButton>
+			</p:column>
+			<f:facet name="footer">
+				<p:commandButton value="Cadastrar Funcionário"
+					onclick="PF('cadastroFuncionario').show();" />
+
+				<p:button value="Sair" outcome="/loginView.xhtml"
+					styleClass="sairButton" />
+			</f:facet>
+		</p:dataTable>
+	</h:form>
+	<h:form>
+		<p:dialog header="Cadastro Funcionario" modal="true" visible="false"
+			widgetVar="cadastroFuncionario">
+			<p:panel>
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:outputLabel for="cpf" value="Cpf:" />
+					<p:inputText id="cpf" value="#{FuncionarioBean.funcionario.cpf}" />
+
+					<h:outputLabel for="nome" value="Nome:" />
+					<p:inputText id="nome" value="#{FuncionarioBean.funcionario.nome}" />
+
+					<h:outputLabel for="email" value="Email:" />
+					<p:inputText id="email"
+						value="#{FuncionarioBean.funcionario.email}" />
+
+					<h:outputLabel for="telefone" value="Telefone:" />
+					<p:inputText id="telefone"
+						value="#{FuncionarioBean.funcionario.telefone}" />
+
+					<f:facet name="footer">
+						<p:commandButton value="Salvar" update="@form"
+							actionListener="#{FuncionarioBean.salvar}" />
+					</f:facet>
+				</h:panelGrid>
+			</p:panel>
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,34 @@
+@charset "ISO-8859-1";
+
+body {
+	background-color: #03a4fa;
+}
+
+.container {
+	width: 350px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10%;
+}
+
+.customImage {
+	margin-bottom: 5px;
+	width: 70px;
+}
+
+.cadButton {
+	margin-left: 65px;
+}
+
+.texto {
+	margin-right: 20px;
+	margin-left: 650px;
+}
+
+.pesquisa {
+	width: 200px;
+}
+
+.sairButton {
+	margin-left: 650px;
+}
